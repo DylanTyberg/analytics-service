@@ -1,0 +1,8 @@
+django>=5.0
+djangorestframework
+psycopg[binary]
+pandas
+numpy
+boto3
+python-jose[cryptography]
+gunicorn

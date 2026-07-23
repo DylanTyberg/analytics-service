@@ -1,0 +1,6 @@
+pyproject.toml
+analytics_service.egg-info/PKG-INFO
+analytics_service.egg-info/SOURCES.txt
+analytics_service.egg-info/dependency_links.txt
+analytics_service.egg-info/requires.txt
+analytics_service.egg-info/top_level.txt
