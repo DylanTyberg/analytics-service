@@ -14,3 +14,4 @@ DATABASES = {
         "PORT": os.environ.get("POSTGRES_PORT", "5434"),
     }
 }
+AUTH_STUB = True

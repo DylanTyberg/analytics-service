@@ -5,13 +5,28 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "analytics-service"
 version = "0.1.0"
+requires-python = ">=3.11"
 dependencies = [
     "django>=5.0",
     "djangorestframework",
     "psycopg[binary]",
     "pandas",
     "numpy",
+    "scipy",
     "boto3",
     "python-jose[cryptography]",
     "gunicorn",
+    "requests",
+    "python-dotenv",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-django", "ruff", "mypy"]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.local"
+python_files = ["test_*.py"]
+pythonpath = ["."]

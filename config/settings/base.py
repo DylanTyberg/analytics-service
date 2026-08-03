@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+load_dotenv(BASE_DIR / ".env")
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "rest_framework",
     "apps.market",
     "apps.trading",
     "apps.analytics",
@@ -112,3 +113,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY", "")
+
+INSTALLED_APPS += ["rest_framework"]
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ["common.auth.CognitoAuthentication"],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+}
