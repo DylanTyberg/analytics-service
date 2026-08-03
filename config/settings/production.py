@@ -6,6 +6,10 @@ DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 ALLOWED_HOSTS = os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
 
+COGNITO_REGION = "us-east-1"
+COGNITO_USER_POOL_ID = "us-east-1_9VbCwStHJ"       
+COGNITO_APP_CLIENT_ID = "8trkun3hdfm03ngugqclo5q7f" 
+
 _creds = get_db_credentials()
 DATABASES = {
     "default": {
