@@ -67,9 +67,9 @@ def behavior_analysis(request: Request) -> Response:
     return Response(AnalysisRunSerializer(run).data, status=status.HTTP_200_OK)
 
 
+from rest_framework.permissions import AllowAny
+
 @api_view(["GET"])
-@authentication_classes([CognitoAuthentication])
 @permission_classes([AllowAny])
-def health(request: Request) -> Response:
-    """Liveness probe for the load balancer / uptime checks. No auth data used."""
+def health(request):
     return Response({"status": "ok"})
