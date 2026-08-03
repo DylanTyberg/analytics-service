@@ -18,6 +18,7 @@ dependencies = [
     "gunicorn",
     "requests",
     "python-dotenv",
+    "django-cors-headers",
 ]
 
 [project.optional-dependencies]

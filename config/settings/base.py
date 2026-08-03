@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",   
+    "django.middleware.security.SecurityMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -117,7 +119,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY", "")
 
-INSTALLED_APPS += ["rest_framework"]
+INSTALLED_APPS += ["rest_framework", "corsheaders",]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ["common.auth.CognitoAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],

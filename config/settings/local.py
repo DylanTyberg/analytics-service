@@ -15,3 +15,5 @@ DATABASES = {
     }
 }
 AUTH_STUB = True
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
