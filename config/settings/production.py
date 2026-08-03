@@ -1,5 +1,6 @@
+import os
 from .base import *  # noqa
-from config.secrets import get_db_credentials
+from config.secrets import get_db_credentials, get_polygon_key
 
 DEBUG = False
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
@@ -12,12 +13,16 @@ DATABASES = {
         "NAME": _creds["dbname"],
         "USER": _creds["username"],
         "PASSWORD": _creds["password"],
-        "HOST": _creds["host"],
-        "PORT": _creds.get("port", "5432"),
+        "HOST": os.environ["RDS_HOST"],
+        "PORT": _creds["port"],
         "CONN_MAX_AGE": 600,
     }
 }
 
+POLYGON_API_KEY = get_polygon_key()
+USER_DATA_TABLE = os.environ.get("USER_DATA_TABLE", "stock-user-data")
+
+# Behind nginx doing TLS termination.
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
