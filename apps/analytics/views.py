@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -69,7 +69,7 @@ def behavior_analysis(request: Request) -> Response:
 
 @api_view(["GET"])
 @authentication_classes([CognitoAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def health(request: Request) -> Response:
     """Liveness probe for the load balancer / uptime checks. No auth data used."""
     return Response({"status": "ok"})
