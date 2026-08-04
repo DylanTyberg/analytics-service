@@ -196,17 +196,24 @@ class Command(BaseCommand):
             self._user_cache[sub], _ = AppUser.objects.get_or_create(cognito_sub=sub)
         return self._user_cache[sub]
 
-    _sec_cache: dict[str, int | None]
 
-    def _security_id(self, symbol: str) -> int | None:
+    _sec_cache: dict[str, int]
+
+    def _security_id(self, symbol: str) -> int:
         """
-        Resolve a symbol to a security id. Unknown symbols return None and
-        the fill is skipped -- the analytics can't use a symbol with no
-        price history anyway, and ingest_bars is what creates securities.
+        Resolve a symbol to a security id, creating a bare Security if it
+        doesn't exist yet.
+
+        A trade in a symbol we haven't ingested bars for is still valid data
+        -- the fill and its lot don't need price history, only the risk
+        metrics do. So we create the security here and let the next
+        ingest_bars run backfill its bars, rather than dropping the trade.
         """
         if not hasattr(self, "_sec_cache"):
             self._sec_cache = {}
         if symbol not in self._sec_cache:
-            sec = Security.objects.filter(symbol=symbol).first()
-            self._sec_cache[symbol] = sec.id if sec else None
+            sec, _ = Security.objects.get_or_create(
+                symbol=symbol, defaults={"name": symbol, "is_active": True}
+            )
+            self._sec_cache[symbol] = sec.id
         return self._sec_cache[symbol]
