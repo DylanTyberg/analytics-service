@@ -32,4 +32,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-CORS_ALLOWED_ORIGINS = ["https://fintech-platform.htytun.com"]
+CORS_ALLOWED_ORIGINS = [
+    "https://fintech-platform.htytun.com",
+    "http://localhost:3000",
+]
